@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Dataset landing page" />
+  <title>TODO: Dataset Name</title>
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --panel:#101826;
+      --panel2:#0e1522;
+      --text:#e6e9ef;
+      --muted:#a6b0c3;
+      --line:rgba(255,255,255,.10);
+      --accent:#7aa2ff;
+      --accent2:#72f1b8;
+      --warn:#ffd56a;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --max:1040px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 10%, rgba(122,162,255,.25), transparent 55%),
+        radial-gradient(900px 600px at 90% 0%, rgba(114,241,184,.14), transparent 55%),
+        radial-gradient(900px 700px at 50% 120%, rgba(255,213,106,.10), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 60px}
+    .nav{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,23,.62);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner{
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:650; letter-spacing:.2px}
+    .dot{width:10px; height:10px; border-radius:50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 0 3px rgba(122,162,255,.15)}
+    .links{display:flex; flex-wrap:wrap; gap:14px; font-size:14px; color:var(--muted)}
+    .links a{color:var(--muted)}
+    .links a:hover{color:var(--text); text-decoration:none}
+    .hero{
+      margin-top:24px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,24,38,.72), rgba(14,21,34,.65));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-80px -80px auto auto;
+      width:280px; height:280px;
+      background: radial-gradient(circle at 30% 30%, rgba(122,162,255,.35), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .title{font-size:34px; margin:2px 0 6px; letter-spacing:.2px}
+    .subtitle{margin:0; color:var(--muted); max-width:72ch}
+    .cta{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top:16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:600;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(122,162,255,.30), rgba(114,241,184,.18));
+      border-color: rgba(122,162,255,.35);
+    }
+    .btn:hover{transform: translateY(-1px); transition:.12s ease}
+    .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+    .pill{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      background: rgba(16,24,38,.60);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    }
+    .card h2{margin:0 0 8px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .card .kv{margin-top:10px; color:var(--text)}
+    .kv span{color:var(--muted)}
+    section{
+      margin-top:22px;
+      border:1px solid var(--line);
+      background: rgba(16,24,38,.55);
+      border-radius:var(--radius);
+      padding:18px;
+    }
+    section h2{margin:0 0 10px; font-size:20px}
+    .muted{color:var(--muted)}
+    .codeblock{
+      margin-top:10px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.35);
+      border-radius:12px;
+      padding:12px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:13px;
+      color:#dbe2f5;
+    }
+    .list{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between;
+      padding:10px 2px 0;
+    }
+    .hr{height:1px; background:var(--line); margin:14px 0 0}
+    @media (max-width:860px){
+      .card{grid-column: span 12}
+      .title{font-size:28px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>TODO: Dataset Name</span>
+      </div>
+      <div class="links">
+        <a href="#overview">Overview</a>
+        <a href="#spec">Data Spec</a>
+        <a href="#download">Download</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#citation">Citation</a>
+        <a href="#license">License</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <h1 class="title">TODO: Dataset Name</h1>
+      <p class="subtitle">
+        TODO: One-line description (what it is, what tasks it supports, why it matters).
+      </p>
+
+      <div class="cta">
+        <a class="btn primary" href="TODO: download_link" target="_blank" rel="noopener">⬇ Download</a>
+        <a class="btn" href="TODO: paper_link" target="_blank" rel="noopener">📄 Paper / Preprint</a>
+        <a class="btn" href="TODO: code_link" target="_blank" rel="noopener">💻 Baselines</a>
+        <a class="btn" href="TODO: issues_link" target="_blank" rel="noopener">🧩 Issues</a>
+      </div>
+
+      <div class="pillrow">
+        <div class="pill">TODO: #samples</div>
+        <div class="pill">TODO: #channels</div>
+        <div class="pill">TODO: modalities (audio + vibration)</div>
+        <div class="pill">TODO: tasks (AD + classification)</div>
+        <div class="pill">TODO: license</div>
+        <div class="pill">TODO: version (v1.0)</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>What’s included</h2>
+        <p>High-level components of the released package.</p>
+        <div class="kv">
+          <div><span>Signals:</span> TODO: audio formats, vibration formats</div>
+          <div><span>Metadata:</span> TODO: metadata.csv / json</div>
+          <div><span>Splits:</span> TODO: split protocol</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Key features</h2>
+        <p>Short bullets for reviewers/users scanning fast.</p>
+        <ul class="list">
+          <li>TODO: e.g., synchronized multi-device recordings.</li>
+          <li>TODO: e.g., multi-condition operating settings (speed/load/noise).</li>
+          <li>TODO: e.g., benchmarks for anomaly detection and fault classification.</li>
+        </ul>
+      </div>
+    </div>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="muted">
+        TODO: 6–10 lines explaining the dataset background, system, and intended use.
+        Keep it concrete: what machine, what sensors, what conditions, what labels.
+      </p>
+    </section>
+
+    <section id="spec">
+      <h2>Data specification</h2>
+      <p class="muted">TODO: Provide exact, reproducible details.</p>
+      <ul class="list">
+        <li>Recording setup: TODO (devices, placement, sampling rates).</li>
+        <li>Segmentation: TODO (clip length, overlap, steady-state criteria).</li>
+        <li>Labels/attributes: TODO (fault types, operating attributes, noise settings).</li>
+        <li>File structure: TODO (top-level folders, naming convention).</li>
+      </ul>
+
+      <div class="codeblock">
+# Example directory layout (edit to match your release)
+dataset_root/
+  metadata.csv
+  README.md
+  audio/
+    device_A/...
+    device_B/...
+  vibration/
+    ch1/...
+    ch2/...
+  splits/
+    train.txt
+    test.txt
+      </div>
+    </section>
+
+    <section id="download">
+      <h2>Download</h2>
+      <p class="muted">
+        TODO: Put stable links here. If the dataset is large, store it on Zenodo / Hugging Face / object storage and link from here.
+      </p>
+      <ul class="list">
+        <li>Latest release: <a href="TODO: download_link" target="_blank" rel="noopener">TODO: v1.0</a></li>
+        <li>Checksum (SHA256): <span class="muted">TODO</span></li>
+        <li>Changelog: <a href="TODO: changelog_link" target="_blank" rel="noopener">TODO</a></li>
+      </ul>
+    </section>
+
+    <section id="benchmark">
+      <h2>Benchmark</h2>
+      <p class="muted">
+        TODO: Describe the baseline protocol in 4–8 lines (features, kNN/memory bank, metrics, split rules).
+      </p>
+      <div class="codeblock">
+# Minimal reproduction (example)
+# 1) download dataset
+# 2) install requirements
+# 3) run baseline
+python -m pip install -r requirements.txt
+python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.txt
+      </div>
+    </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+      <p class="muted">TODO: Add BibTeX once your paper/DOI is ready.</p>
+      <div class="codeblock">
+@dataset{TODO_key,
+  title   = {TODO: Dataset Name},
+  author  = {TODO: Authors},
+  year    = {2026},
+  url     = {TODO: dataset landing page URL},
+  note    = {Version TODO}
+}
+      </div>
+    </section>
+
+    <section id="license">
+      <h2>License & usage</h2>
+      <ul class="list">
+        <li>License: <span class="muted">TODO (e.g., CC BY 4.0 / MIT for code)</span></li>
+        <li>Restrictions: <span class="muted">TODO (if any)</span></li>
+        <li>Privacy/ethics: <span class="muted">TODO (e.g., no personal data)</span></li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="muted">
+        Maintainer: TODO (email or GitHub handle). For questions and bug reports, open an issue:
+        <a href="TODO: issues_link" target="_blank" rel="noopener">TODO: issues page</a>.
+      </p>
+    </section>
+
+    <div class="hr"></div>
+    <div class="footer">
+      <div>© 2026 TODO: Dataset Name</div>
+      <div>
+        Built for GitHub Pages ·
+        <a href="https://pages.github.com/" target="_blank" rel="noopener">Docs</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

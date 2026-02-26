@@ -186,40 +186,38 @@
 
       <div class="pillrow">
         <div class="pill">6,669 clips</div>
-        <div class="pill">7 synchronized channels</div>
-        <div class="pill">3 Audio + 4 Vibration</div>
+        <div class="pill">3 Audio + 4 Vibration channels</div>
         <div class="pill">Fault Detection + Fault Classification</div>
         <div class="pill">CC BY 4.0</div>
         <div class="pill">v1.0</div>
       </div>
     </header>
 
-    <div class="grid">
-      <div class="card">
-        <h2>What’s included</h2>
-        <p>High-level components of the released package.</p>
-        <div class="kv">
-          <div><span>Signals:</span> TODO: audio formats, vibration formats</div>
-          <div><span>Metadata:</span> TODO: metadata.csv / json</div>
-          <div><span>Splits:</span> TODO: split protocol</div>
+      <div class="grid">
+        <div class="card">
+          <h2>What’s included</h2>
+          <p>Components provided in the SSCC v1.0 release.</p>
+          <div class="kv">
+            <div><span>Signals:</span> 3 audio channels (.mp4) + 4 vibration channels (.csv)</div>
+            <div><span>Metadata:</span> Per-clip condition annotations (speed, load, label, noise)</div>
+            <div><span>Splits:</span> Detection split (normal vs abnormal); separate splits for fault classification</div>
+          </div>
         </div>
-      </div>
 
       <div class="card">
         <h2>Key features</h2>
-        <p>Short bullets for reviewers/users scanning fast.</p>
+        <p>Core characteristics of the SSCC dataset.</p>
         <ul class="list">
-          <li>TODO: e.g., synchronized multi-device recordings.</li>
-          <li>TODO: e.g., multi-condition operating settings (speed/load/noise).</li>
-          <li>TODO: e.g., benchmarks for anomaly detection and fault classification.</li>
+          <li>Synchronized multimodal recordings enabling cross-modal representation learning.</li>
+          <li>Multi-condition operating settings across speed, load, fault type, and noise.</li>
+          <li>Unified benchmark protocols for industrial fault analysis under distribution shift.</li>
         </ul>
       </div>
-    </div>
 
     <section id="overview">
       <h2>Overview</h2>
       <p class="muted">
-        The SSCC dataset contains synchronized audio and vibration recordings collected from a laboratory single-speed chain conveyor system under diverse operating conditions. Each sample corresponds to a specific condition defined by conveying speed, load level, operating category (normal or fault type), and noise setting. The dataset is designed to support both unsupervised anomaly detection and supervised fault classification, enabling research on multimodal representation learning and fusion under realistic condition shifts.
+        The SSCC dataset contains synchronized audio and vibration recordings collected from a laboratory single-speed chain conveyor system under diverse operating conditions. Each sample corresponds to a specific condition defined by conveying speed, load level, operating category (normal or fault type), and noise setting. The dataset is designed to support both unsupervised fault detection and supervised fault classification, enabling research on multimodal representation learning and fusion under realistic domain shifts.
       </p>
     </section>
 

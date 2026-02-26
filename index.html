@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Dataset landing page" />
-  <title>Multimodal Single-Speed Chain Conveyer Dataset</title>
+  <title>SSCC Dataset</title>
   <style>
     :root{
       --bg:#0b0f17;
@@ -156,7 +156,7 @@
     <div class="nav-inner">
       <div class="brand">
         <span class="dot"></span>
-        <span>TODO: Dataset Name</span>
+        <span>SSCC</span>
       </div>
       <div class="links">
         <a href="#overview">Overview</a>
@@ -172,9 +172,9 @@
 
   <div class="wrap">
     <header class="hero">
-      <h1 class="title">TODO: Dataset Name</h1>
+      <h1 class="title">SSCC Dataset</h1>
       <p class="subtitle">
-        TODO: One-line description (what it is, what tasks it supports, why it matters).
+        A synchronized multimodal dataset for anomaly detection and fault diagnosis on a single-speed chain conveyor system.
       </p>
 
       <div class="cta">
@@ -187,10 +187,10 @@
       <div class="pillrow">
         <div class="pill">TODO: #samples</div>
         <div class="pill">TODO: #channels</div>
-        <div class="pill">TODO: modalities (audio + vibration)</div>
-        <div class="pill">TODO: tasks (AD + classification)</div>
+        <div class="pill">Audio + Vibration</div>
+        <div class="pill">Anomaly Detection + Fault Classification</div>
         <div class="pill">TODO: license</div>
-        <div class="pill">TODO: version (v1.0)</div>
+        <div class="pill">v1.0</div>
       </div>
     </header>
 
@@ -219,14 +219,13 @@
     <section id="overview">
       <h2>Overview</h2>
       <p class="muted">
-        TODO: 6–10 lines explaining the dataset background, system, and intended use.
-        Keep it concrete: what machine, what sensors, what conditions, what labels.
+        The SSCC dataset contains synchronized audio and vibration recordings collected from a laboratory single-speed chain conveyor system under diverse operating conditions. Each sample corresponds to a specific condition defined by conveying speed, load level, operating category (normal or fault type), and noise setting. The dataset is designed to support both unsupervised anomaly detection and supervised fault classification, enabling research on multimodal representation learning and fusion under realistic condition shifts.
       </p>
     </section>
 
     <section id="spec">
       <h2>Data specification</h2>
-      <p class="muted">TODO: Provide exact, reproducible details.</p>
+      <p class="muted">Provide exact, reproducible details.</p>
       <ul class="list">
         <li>Recording setup: TODO (devices, placement, sampling rates).</li>
         <li>Segmentation: TODO (clip length, overlap, steady-state criteria).</li>
@@ -254,10 +253,10 @@ dataset_root/
     <section id="download">
       <h2>Download</h2>
       <p class="muted">
-        TODO: Put stable links here. If the dataset is large, store it on Zenodo / Hugging Face / object storage and link from here.
+        Put stable links here. If the dataset is large, store it on Zenodo / Hugging Face / object storage and link from here.
       </p>
       <ul class="list">
-        <li>Latest release: <a href="TODO: download_link" target="_blank" rel="noopener">TODO: v1.0</a></li>
+        <li>Latest release: <a href="TODO: download_link" target="_blank" rel="noopener">v1.0</a></li>
         <li>Checksum (SHA256): <span class="muted">TODO</span></li>
         <li>Changelog: <a href="TODO: changelog_link" target="_blank" rel="noopener">TODO</a></li>
       </ul>
@@ -266,7 +265,7 @@ dataset_root/
     <section id="benchmark">
       <h2>Benchmark</h2>
       <p class="muted">
-        TODO: Describe the baseline protocol in 4–8 lines (features, kNN/memory bank, metrics, split rules).
+        Describe the baseline protocol in 4–8 lines (features, kNN/memory bank, metrics, split rules).
       </p>
       <div class="codeblock">
 # Minimal reproduction (example)
@@ -280,14 +279,14 @@ python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.
 
     <section id="citation">
       <h2>Citation</h2>
-      <p class="muted">TODO: Add BibTeX once your paper/DOI is ready.</p>
+      <p class="muted">Add BibTeX once your paper/DOI is ready.</p>
       <div class="codeblock">
-@dataset{TODO_key,
-  title   = {TODO: Dataset Name},
+@dataset{sscc_dataset_v1,
+  title   = {SSCC Dataset},
   author  = {TODO: Authors},
   year    = {2026},
   url     = {TODO: dataset landing page URL},
-  note    = {Version TODO}
+  note    = {Version v1.0}
 }
       </div>
     </section>
@@ -297,7 +296,7 @@ python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.
       <ul class="list">
         <li>License: <span class="muted">TODO (e.g., CC BY 4.0 / MIT for code)</span></li>
         <li>Restrictions: <span class="muted">TODO (if any)</span></li>
-        <li>Privacy/ethics: <span class="muted">TODO (e.g., no personal data)</span></li>
+        <li>Privacy/ethics: <span class="muted">No personal data is included in this dataset.</span></li>
       </ul>
     </section>
 
@@ -305,13 +304,13 @@ python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.
       <h2>Contact</h2>
       <p class="muted">
         Maintainer: TODO (email or GitHub handle). For questions and bug reports, open an issue:
-        <a href="TODO: issues_link" target="_blank" rel="noopener">TODO: issues page</a>.
+        <a href="TODO: issues_link" target="_blank" rel="noopener">SSCC issues page</a>.
       </p>
     </section>
 
     <div class="hr"></div>
     <div class="footer">
-      <div>© 2026 TODO: Dataset Name</div>
+      <div>© 2026 SSCC Dataset</div>
       <div>
         Built for GitHub Pages ·
         <a href="https://pages.github.com/" target="_blank" rel="noopener">Docs</a>

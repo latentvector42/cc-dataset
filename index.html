@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Dataset landing page" />
+  <meta name="description" content="SSCC dataset landing page" />
   <title>SSCC Dataset</title>
   <style>
     :root{
@@ -69,7 +69,7 @@
       pointer-events:none;
     }
     .title{font-size:34px; margin:2px 0 6px; letter-spacing:.2px}
-    .subtitle{margin:0; color:var(--muted); max-width:72ch}
+    .subtitle{margin:0; color:var(--muted); max-width:78ch}
     .cta{
       display:flex; flex-wrap:wrap; gap:10px;
       margin-top:16px;
@@ -96,6 +96,7 @@
       background: rgba(255,255,255,.02);
       padding:6px 10px;
       border-radius:999px;
+      white-space:nowrap;
     }
     .grid{
       margin-top:18px;
@@ -148,6 +149,72 @@
       .card{grid-column: span 12}
       .title{font-size:28px}
     }
+
+    /* ---- table styles (dataset composition) ---- */
+    .tablewrap{
+      margin-top:12px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background: rgba(0,0,0,.22);
+    }
+    table.sscc{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 980px;
+      font-size:13px;
+    }
+    table.sscc th, table.sscc td{
+      padding:8px 10px;
+      border-bottom:1px solid var(--line);
+      white-space:nowrap;
+    }
+    table.sscc thead th{
+      position:sticky;
+      top:0;
+      background: rgba(11,15,23,.92);
+      color: var(--text);
+      z-index:2;
+    }
+    table.sscc th{
+      text-align:left;
+      font-weight:650;
+    }
+    table.sscc td.num, table.sscc th.num{
+      text-align:right;
+      font-variant-numeric: tabular-nums;
+    }
+    table.sscc tbody tr:hover td{
+      background: rgba(122,162,255,.06);
+    }
+    table.sscc .group{
+      background: rgba(255,255,255,.02);
+      font-weight:650;
+    }
+    table.sscc .total{
+      font-weight:750;
+    }
+
+    /* ---- photo block ---- */
+    .photowrap{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .photowrap img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+    .caption{
+      padding:10px 12px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
   </style>
 </head>
 
@@ -161,6 +228,7 @@
       <div class="links">
         <a href="#overview">Overview</a>
         <a href="#spec">Data Spec</a>
+        <a href="#setup">Lab Setup</a>
         <a href="#download">Download</a>
         <a href="#benchmark">Benchmark</a>
         <a href="#citation">Citation</a>
@@ -174,7 +242,7 @@
     <header class="hero">
       <h1 class="title">SSCC Dataset</h1>
       <p class="subtitle">
-        A synchronized multimodal 7-channel dataset for fault analysis on a single-speed chain conveyor system.
+        A synchronized multimodal 7-channel dataset for fault detection and fault classification on a single-speed chain conveyor system.
       </p>
 
       <div class="cta">
@@ -182,27 +250,29 @@
         <a class="btn" href="TODO: paper_link" target="_blank" rel="noopener">📄 Paper / Preprint</a>
         <a class="btn" href="TODO: code_link" target="_blank" rel="noopener">💻 Baselines</a>
         <a class="btn" href="TODO: issues_link" target="_blank" rel="noopener">🧩 Issues</a>
+        <a class="btn" href="TODO: code_available_link" target="_blank" rel="noopener">🔗 Code available at</a>
       </div>
 
       <div class="pillrow">
         <div class="pill">6,669 clips</div>
-        <div class="pill">3 Audio + 4 Vibration channels</div>
+        <div class="pill">7 synchronized channels</div>
+        <div class="pill">3 Audio (.mp4) + 4 Vibration (.csv)</div>
         <div class="pill">Fault Detection + Fault Classification</div>
         <div class="pill">CC BY 4.0</div>
         <div class="pill">v1.0</div>
       </div>
     </header>
 
-      <div class="grid">
-        <div class="card">
-          <h2>What’s included</h2>
-          <p>Components provided in the SSCC v1.0 release.</p>
-          <div class="kv">
-            <div><span>Signals:</span> 3 audio channels (.mp4) + 4 vibration channels (.csv)</div>
-            <div><span>Metadata:</span> Per-clip condition annotations (speed, load, label, noise)</div>
-            <div><span>Splits:</span> Detection split (normal vs abnormal); separate splits for fault classification</div>
-          </div>
+    <div class="grid">
+      <div class="card">
+        <h2>What’s included</h2>
+        <p>Components provided in the SSCC v1.0 release.</p>
+        <div class="kv">
+          <div><span>Signals:</span> 3 audio channels (.mp4) + 4 vibration channels (.csv)</div>
+          <div><span>Metadata:</span> metadata.csv with per-clip condition annotations (speed, load, label, noise)</div>
+          <div><span>Splits:</span> Detection split (normal vs abnormal); separate splits for fault classification</div>
         </div>
+      </div>
 
       <div class="card">
         <h2>Key features</h2>
@@ -210,41 +280,301 @@
         <ul class="list">
           <li>Synchronized multimodal recordings enabling cross-modal representation learning.</li>
           <li>Multi-condition operating settings across speed, load, fault type, and noise.</li>
-          <li>Unified benchmark protocols for industrial fault analysis under distribution shift.</li>
+          <li>Benchmark protocols for fault analysis under distribution shift.</li>
         </ul>
       </div>
+    </div>
 
     <section id="overview">
       <h2>Overview</h2>
       <p class="muted">
-        The SSCC dataset contains synchronized audio and vibration recordings collected from a laboratory single-speed chain conveyor system under diverse operating conditions. Each sample corresponds to a specific condition defined by conveying speed, load level, operating category (normal or fault type), and noise setting. The dataset is designed to support both unsupervised fault detection and supervised fault classification, enabling research on multimodal representation learning and fusion under realistic domain shifts.
+        The SSCC dataset contains synchronized audio and vibration recordings collected from a laboratory single-speed chain conveyor system under diverse operating conditions.
+        Each clip corresponds to a condition defined by conveying speed, load level, operating category (normal or fault type), and noise setting.
+        SSCC is designed to support both fault detection (normal vs abnormal) and multi-class fault classification, enabling research on multimodal representation learning and fusion under realistic domain shifts.
       </p>
     </section>
 
     <section id="spec">
       <h2>Data specification</h2>
-      <p class="muted">Provide exact, reproducible details.</p>
+      <p class="muted">Exact, reproducible details about recording, annotation, and organization.</p>
       <ul class="list">
-        <li>Recording setup: TODO (devices, placement, sampling rates).</li>
+        <li>Recording setup: TODO (devices, placement, sampling rates, synchronization).</li>
         <li>Segmentation: TODO (clip length, overlap, steady-state criteria).</li>
-        <li>Labels/attributes: TODO (fault types, operating attributes, noise settings).</li>
-        <li>File structure: TODO (top-level folders, naming convention).</li>
+        <li>Labels/attributes: normal + 4 fault types; operating attributes (speed, load, noise).</li>
+        <li>Splits: fault detection uses normal vs abnormal; fault classification uses separate multi-class splits.</li>
+        <li>File structure: audio/ vibration/ metadata.csv / splits/.</li>
       </ul>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Dataset composition (clips)</h3>
+      <p class="muted" style="margin:0 0 8px;">
+        Clip counts by category, load, conveying speed, and noise setting.
+      </p>
+
+      <div class="tablewrap">
+        <table class="sscc" aria-label="SSCC Dataset Overview Table">
+          <thead>
+            <tr>
+              <th rowspan="2">Category</th>
+              <th rowspan="2">Load</th>
+              <th colspan="2" class="num">Velocity=20</th>
+              <th colspan="2" class="num">Velocity=40</th>
+              <th colspan="2" class="num">Velocity=60</th>
+              <th colspan="2" class="num">Velocity=80</th>
+              <th colspan="2" class="num">Velocity=100</th>
+              <th rowspan="2" class="num">Total</th>
+            </tr>
+            <tr>
+              <th class="num">clean</th><th class="num">noise</th>
+              <th class="num">clean</th><th class="num">noise</th>
+              <th class="num">clean</th><th class="num">noise</th>
+              <th class="num">clean</th><th class="num">noise</th>
+              <th class="num">clean</th><th class="num">noise</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- normal -->
+            <tr>
+              <td>normal</td><td>heavy</td>
+              <td class="num">69</td><td class="num">–</td>
+              <td class="num">68</td><td class="num">–</td>
+              <td class="num">69</td><td class="num">96</td>
+              <td class="num">77</td><td class="num">97</td>
+              <td class="num">68</td><td class="num">96</td>
+              <td class="num">640</td>
+            </tr>
+            <tr>
+              <td>normal</td><td>med</td>
+              <td class="num">73</td><td class="num">–</td>
+              <td class="num">66</td><td class="num">–</td>
+              <td class="num">78</td><td class="num">96</td>
+              <td class="num">67</td><td class="num">94</td>
+              <td class="num">66</td><td class="num">99</td>
+              <td class="num">639</td>
+            </tr>
+            <tr>
+              <td>normal</td><td>light</td>
+              <td class="num">68</td><td class="num">–</td>
+              <td class="num">86</td><td class="num">–</td>
+              <td class="num">69</td><td class="num">97</td>
+              <td class="num">66</td><td class="num">97</td>
+              <td class="num">67</td><td class="num">97</td>
+              <td class="num">647</td>
+            </tr>
+            <tr class="group total">
+              <td>normal</td><td>Total</td>
+              <td class="num">210</td><td class="num">–</td>
+              <td class="num">220</td><td class="num">–</td>
+              <td class="num">216</td><td class="num">289</td>
+              <td class="num">210</td><td class="num">288</td>
+              <td class="num">201</td><td class="num">292</td>
+              <td class="num">1,926</td>
+            </tr>
+
+            <!-- dry -->
+            <tr>
+              <td>dry</td><td>heavy</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">56</td><td class="num">58</td>
+              <td class="num">342</td>
+            </tr>
+            <tr>
+              <td>dry</td><td>med</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">69</td><td class="num">57</td>
+              <td class="num">56</td><td class="num">57</td>
+              <td class="num">64</td><td class="num">56</td>
+              <td class="num">359</td>
+            </tr>
+            <tr>
+              <td>dry</td><td>light</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">62</td><td class="num">58</td>
+              <td class="num">49</td><td class="num">56</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">339</td>
+            </tr>
+            <tr class="group total">
+              <td>dry</td><td>Total</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">188</td><td class="num">172</td>
+              <td class="num">162</td><td class="num">170</td>
+              <td class="num">177</td><td class="num">171</td>
+              <td class="num">1,040</td>
+            </tr>
+
+            <!-- lean -->
+            <tr>
+              <td>lean</td><td>heavy</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">342</td>
+            </tr>
+            <tr>
+              <td>lean</td><td>med</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">58</td><td class="num">56</td>
+              <td class="num">57</td><td class="num">57</td>
+              <td class="num">56</td><td class="num">–</td>
+              <td class="num">284</td>
+            </tr>
+            <tr>
+              <td>lean</td><td>light</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">57</td><td class="num">56</td>
+              <td class="num">69</td><td class="num">60</td>
+              <td class="num">56</td><td class="num">56</td>
+              <td class="num">354</td>
+            </tr>
+            <tr class="group total">
+              <td>lean</td><td>Total</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">172</td><td class="num">169</td>
+              <td class="num">183</td><td class="num">174</td>
+              <td class="num">169</td><td class="num">113</td>
+              <td class="num">980</td>
+            </tr>
+
+            <!-- loose -->
+            <tr>
+              <td>loose</td><td>heavy</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">96</td><td class="num">99</td>
+              <td class="num">97</td><td class="num">97</td>
+              <td class="num">97</td><td class="num">96</td>
+              <td class="num">582</td>
+            </tr>
+            <tr>
+              <td>loose</td><td>med</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">73</td><td class="num">96</td>
+              <td class="num">96</td><td class="num">96</td>
+              <td class="num">96</td><td class="num">99</td>
+              <td class="num">556</td>
+            </tr>
+            <tr>
+              <td>loose</td><td>light</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">96</td><td class="num">96</td>
+              <td class="num">96</td><td class="num">96</td>
+              <td class="num">96</td><td class="num">97</td>
+              <td class="num">577</td>
+            </tr>
+            <tr class="group total">
+              <td>loose</td><td>Total</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">265</td><td class="num">291</td>
+              <td class="num">289</td><td class="num">289</td>
+              <td class="num">289</td><td class="num">292</td>
+              <td class="num">1,715</td>
+            </tr>
+
+            <!-- screwdrop -->
+            <tr>
+              <td>screwdrop</td><td>heavy</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">57</td><td class="num">56</td>
+              <td class="num">57</td><td class="num">55</td>
+              <td class="num">56</td><td class="num">54</td>
+              <td class="num">335</td>
+            </tr>
+            <tr>
+              <td>screwdrop</td><td>med</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">57</td><td class="num">47</td>
+              <td class="num">52</td><td class="num">51</td>
+              <td class="num">87</td><td class="num">54</td>
+              <td class="num">348</td>
+            </tr>
+            <tr>
+              <td>screwdrop</td><td>light</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">56</td><td class="num">56</td>
+              <td class="num">56</td><td class="num">54</td>
+              <td class="num">45</td><td class="num">56</td>
+              <td class="num">325</td>
+            </tr>
+            <tr class="group total">
+              <td>screwdrop</td><td>Total</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">–</td><td class="num">–</td>
+              <td class="num">170</td><td class="num">159</td>
+              <td class="num">165</td><td class="num">162</td>
+              <td class="num">188</td><td class="num">164</td>
+              <td class="num">1,008</td>
+            </tr>
+
+            <!-- overall -->
+            <tr class="group total">
+              <td>Overall</td><td>Total</td>
+              <td class="num">210</td><td class="num">–</td>
+              <td class="num">220</td><td class="num">–</td>
+              <td class="num">1,011</td><td class="num">1,080</td>
+              <td class="num">1,009</td><td class="num">1,083</td>
+              <td class="num">1,024</td><td class="num">1,032</td>
+              <td class="num">6,669</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="codeblock">
 # Example directory layout (edit to match your release)
 dataset_root/
-  metadata.csv
   README.md
+  metadata.csv
   audio/
-    device_A/...
-    device_B/...
+    ch1_recorder/...
+    ch2_phone_A/...
+    ch3_phone_B/...
   vibration/
-    ch1/...
-    ch2/...
+    ch4/...
+    ch5/...
+    ch6/...
+    ch7/...
   splits/
-    train.txt
-    test.txt
+    detection_train.txt
+    detection_test.txt
+    classification_train.txt
+    classification_test.txt
+      </div>
+    </section>
+
+    <section id="setup">
+      <h2>Lab setup photos</h2>
+      <p class="muted">
+        Add one or more photos of the experimental setup (system overview, sensor placement, and acquisition devices).
+      </p>
+
+      <!-- Replace src with your actual image path/URL. For GitHub Pages, a common choice is ./assets/lab_setup.jpg -->
+      <div class="photowrap">
+        <img src="TODO: lab_photo_1" alt="SSCC lab setup photo" />
+        <div class="caption">Figure: Laboratory single-speed chain conveyor setup and sensor placement (SSCC v1.0).</div>
+      </div>
+
+      <!-- Optional second photo -->
+      <div class="photowrap" style="margin-top:12px;">
+        <img src="TODO: lab_photo_2" alt="SSCC sensors and recording devices" />
+        <div class="caption">Figure: Audio devices (3 channels) and vibration sensors (4 channels) used for synchronized acquisition.</div>
       </div>
     </section>
 
@@ -263,15 +593,32 @@ dataset_root/
     <section id="benchmark">
       <h2>Benchmark</h2>
       <p class="muted">
-        Describe the baseline protocol in 4–8 lines (features, kNN/memory bank, metrics, split rules).
+        We provide two benchmark tracks with task-specific splits and evaluation protocols. Code is available at:
+        <a href="TODO: code_available_link" target="_blank" rel="noopener">this repository</a>.
+      </p>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Fault detection (normal vs abnormal)</h3>
+      <p class="muted" style="margin:0 0 8px;">
+        Train on normal clips only. Evaluate on a mixed test set containing both normal and abnormal clips.
       </p>
       <div class="codeblock">
-# Minimal reproduction (example)
-# 1) download dataset
-# 2) install requirements
-# 3) run baseline
+# Fault detection (example)
 python -m pip install -r requirements.txt
-python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.txt
+python run_detection.py --data ./dataset_root \
+  --train_split ./dataset_root/splits/detection_train.txt \
+  --test_split  ./dataset_root/splits/detection_test.txt
+      </div>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Fault classification (multi-class)</h3>
+      <p class="muted" style="margin:0 0 8px;">
+        Use a dedicated split for multi-class classification (normal + fault types, or fault-only depending on your setup).
+      </p>
+      <div class="codeblock">
+# Fault classification (example)
+python -m pip install -r requirements.txt
+python run_classification.py --data ./dataset_root \
+  --train_split ./dataset_root/splits/classification_train.txt \
+  --test_split  ./dataset_root/splits/classification_test.txt
       </div>
     </section>
 
@@ -284,7 +631,7 @@ python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.
   author  = {TODO: Authors},
   year    = {2026},
   url     = {TODO: dataset landing page URL},
-  note    = {Version v1.0}
+  note    = {Version v1.0, License: CC BY 4.0}
 }
       </div>
     </section>
@@ -292,8 +639,8 @@ python run_baseline.py --data ./dataset_root --split ./dataset_root/splits/test.
     <section id="license">
       <h2>License & usage</h2>
       <ul class="list">
-        <li>License: <span class="muted">TODO (e.g., CC BY 4.0 / MIT for code)</span></li>
-        <li>Restrictions: <span class="muted">TODO (if any)</span></li>
+        <li>Dataset license: <span class="muted">Creative Commons Attribution 4.0 International (CC BY 4.0)</span></li>
+        <li>Code license: <span class="muted">TODO (e.g., MIT)</span></li>
         <li>Privacy/ethics: <span class="muted">No personal data is included in this dataset.</span></li>
       </ul>
     </section>

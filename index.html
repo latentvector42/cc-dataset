@@ -356,7 +356,6 @@ environmental noise conditions. Only audio tracks are used from mobile recording
         <li>Segmentation: Data are collected under steady-state operating conditions and segmented into fixed-length clips (5 seconds per clip). No temporal overlap is applied between adjacent segments. All seven channels corresponding to the same time window are treated as synchronized modalities of a single sample.</li>
         <li>Labels/attributes: normal + 4 fault types; operating attributes (speed, load, noise).</li>
         <li>Splits: fault detection uses normal vs abnormal; fault classification uses separate multi-class splits.</li>
-        <li>File structure: ASDdataset/{normal|fault_type}/{condition}/{android|ios|audio|vibration}/</li>
       </ul>
 
       <h3 style="margin:12px 0 6px; font-size:16px;">Dataset composition (clips)</h3>
@@ -591,12 +590,13 @@ environmental noise conditions. Only audio tracks are used from mobile recording
         </table>
       </div>
 
-<div class="filetree">
+<div class="filetree" aria-label="SSCC directory tree">
   <ul>
     <li><strong>ASDdataset/</strong>
       <ul>
         <li>README.md</li>
         <li>metadata.csv</li>
+
         <li><strong>normal/</strong>
           <ul>
             <li><strong>heavy_vel40_clean/</strong>
@@ -611,10 +611,22 @@ environmental noise conditions. Only audio tracks are used from mobile recording
             <li>...</li>
           </ul>
         </li>
-        <li><strong>dry/</strong> (abnormal)</li>
-        <li><strong>lean/</strong> (abnormal)</li>
-        <li><strong>loose/</strong> (abnormal)</li>
-        <li><strong>screwdrop/</strong> (abnormal)</li>
+
+        <li><strong>abnormal/</strong>
+          <ul>
+            <li><strong>dry/</strong>
+              <ul>
+                <li>heavy_vel60_clean/</li>
+                <li>heavy_vel60_noise/</li>
+                <li>...</li>
+              </ul>
+            </li>
+            <li><strong>lean/</strong></li>
+            <li><strong>loose/</strong></li>
+            <li><strong>screwdrop/</strong></li>
+          </ul>
+        </li>
+
       </ul>
     </li>
   </ul>
@@ -624,9 +636,6 @@ environmental noise conditions. Only audio tracks are used from mobile recording
 
     <section id="download">
       <h2>Download</h2>
-      <p class="muted">
-        Put stable links here. If the dataset is large, store it on Zenodo / Hugging Face / object storage and link from here.
-      </p>
       <ul class="list">
         <li>Latest release: <a href="TODO: download_link" target="_blank" rel="noopener">v1.0</a></li>
         <li>Checksum (SHA256): <span class="muted">TODO</span></li>
@@ -668,7 +677,6 @@ python run_classification.py --data ./dataset_root \
 
     <section id="citation">
       <h2>Citation</h2>
-      <p class="muted">Add BibTeX once your paper/DOI is ready.</p>
       <div class="codeblock">
 @dataset{sscc_dataset_v1,
   title   = {SSCC Dataset},

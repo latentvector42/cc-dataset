@@ -630,44 +630,105 @@ environmental noise conditions. Only audio tracks are used from mobile recording
 </div>
     </section>
 
-<section id="audio-examples" style="padding:60px 0;">
-  <div style="max-width:900px;margin:auto;">
+<section id="multimodal-examples" style="padding:60px 0;">
+  <div style="max-width:1100px;margin:auto;">
 
-    <h2>Audio Examples</h2>
+    <h2>Multimodal Examples</h2>
     <p>
-      Below are example recordings from the SSCC dataset.
-      These samples illustrate normal and abnormal operating conditions.
+      Each example corresponds to the same condition and the same sample index, shown across sensing modalities:
+      a recorder microphone, iOS device, Android device, and vibration sensors (4 channels).
     </p>
 
-    <!-- Example 1 -->
-    <div style="margin-top:30px;">
-      <h4>Normal – Heavy Load – Clean</h4>
-      <audio controls>
-        <source src="assets/audio/normal_heavy_clean_example.wav" type="audio/wav">
-        Your browser does not support the audio element.
-      </audio>
+    <!-- =========================
+         Example: heavy_vel100_clean
+         Folder: assets/heavy_vel100_clean/
+         Files:
+           - heavy_vel100_clean_recorder.wav
+           - heavy_vel100_clean_ios.wav
+           - heavy_vel100_clean_android.wav
+           - heavy_vel100_clean_waveform.png
+         ========================= -->
+
+    <div style="margin-top:28px;padding:18px;border:1px solid rgba(0,0,0,0.12);border-radius:14px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;">
+        
+        <!-- Left: condition label -->
+        <div style="flex:1 1 220px;min-width:220px;">
+          <h4 style="margin:0 0 8px 0;">Condition: heavy_vel100_clean</h4>
+          <div style="font-size:14px;line-height:1.4;opacity:0.9;">
+            One sample captured simultaneously by:
+            <ul style="margin:8px 0 0 18px;padding:0;">
+              <li>Recorder microphone (WAV)</li>
+              <li>iOS device microphone (WAV)</li>
+              <li>Android device microphone (WAV)</li>
+              <li>Vibration sensors (4 channels waveform)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Middle: 3 audio players (one row) -->
+        <div style="flex:2 1 520px;min-width:320px;">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;">
+            
+            <div style="flex:1 1 260px;min-width:260px;">
+              <div style="font-size:13px;margin-bottom:6px;">Recorder</div>
+              <audio controls style="width:100%;">
+                <source src="assets/heavy_vel100_clean/heavy_vel100_clean_recorder.wav" type="audio/wav">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:260px;">
+              <div style="font-size:13px;margin-bottom:6px;">iOS device</div>
+              <audio controls style="width:100%;">
+                <source src="assets/heavy_vel100_clean/heavy_vel100_clean_ios.wav" type="audio/wav">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:260px;">
+              <div style="font-size:13px;margin-bottom:6px;">Android device</div>
+              <audio controls style="width:100%;">
+                <source src="assets/heavy_vel100_clean/heavy_vel100_clean_android.wav" type="audio/wav">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: vibration waveform image -->
+        <div style="flex:1 1 260px;min-width:260px;">
+          <div style="font-size:13px;margin-bottom:6px;">Vibration sensors (4 channels)</div>
+          <a href="assets/heavy_vel100_clean/heavy_vel100_clean_waveform.png" target="_blank" rel="noopener noreferrer">
+            <img
+              src="assets/heavy_vel100_clean/heavy_vel100_clean_waveform.png"
+              alt="Vibration waveform (4 channels) for heavy_vel100_clean"
+              style="width:100%;height:auto;border-radius:10px;border:1px solid rgba(0,0,0,0.12);"
+            />
+          </a>
+          <div style="font-size:12px;opacity:0.75;margin-top:6px;">
+            Click to view full resolution.
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- Example 2 -->
-    <div style="margin-top:30px;">
-      <h4>Abnormal – Dry Fault – Velocity 80</h4>
-      <audio controls>
-        <source src="assets/audio/abnormal_dry_vel80_example.wav" type="audio/wav">
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+    <!-- =========================
+         Placeholder for future fault examples
+         Copy the block above and update:
+           - Condition title
+           - asset folder
+           - filenames
+         ========================= -->
 
-    <!-- Example 3 -->
-    <div style="margin-top:30px;">
-      <h4>Abnormal – Lean Fault – Velocity 100 – Noisy</h4>
-      <audio controls>
-        <source src="assets/audio/abnormal_lean_vel100_noise_example.wav" type="audio/wav">
-        Your browser does not support the audio element.
-      </audio>
+    <div style="margin-top:18px;opacity:0.85;font-size:14px;">
+      More fault-condition examples will be added here (placeholders ready).
     </div>
 
   </div>
-</section>  
+</section>
 
 <section id="benchmark">
   <h2>Benchmark</h2>

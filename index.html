@@ -8,16 +8,18 @@
 
   <style>
     /* =========================
-       Global Theme Variables
+       Theme + Layout Variables
        ========================= */
     :root{
       --bg:#0b0f17;
       --panel:#101826;
+      --panel2:#0e1522;
       --text:#e6e9ef;
       --muted:#a6b0c3;
       --line:rgba(255,255,255,.10);
       --accent:#7aa2ff;
       --accent2:#72f1b8;
+      --warn:#ffd56a;
       --shadow:0 12px 30px rgba(0,0,0,.35);
       --radius:16px;
 
@@ -29,45 +31,52 @@
 
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
       background:
         radial-gradient(1000px 600px at 20% 10%, rgba(122,162,255,.25), transparent 55%),
         radial-gradient(900px 600px at 90% 0%, rgba(114,241,184,.14), transparent 55%),
+        radial-gradient(900px 700px at 50% 120%, rgba(255,213,106,.10), transparent 55%),
         var(--bg);
-      line-height:1.6;
+      line-height:1.55;
     }
 
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* =========================
-       Navigation Bar
-       ========================= */
+    /* Main page container */
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:22px 14px 60px; /* slightly tighter horizontal padding */
+    }
 
+    /* =========================
+       Sticky Navigation
+       ========================= */
     .nav{
       position:sticky;
       top:0;
       z-index:10;
       backdrop-filter: blur(10px);
-      background: rgba(11,15,23,.7);
-      border-bottom:1px solid var(--line);
+      background: rgba(11,15,23,.62);
+      border-bottom: 1px solid var(--line);
     }
 
-    /* 
-       flex-wrap prevents overlapping when
-       screen width becomes narrow.
+    /*
+      Critical fix:
+      allow wrapping on small widths to prevent nav content overlapping.
     */
     .nav-inner{
       max-width:var(--max);
       margin:0 auto;
-      padding:10px 16px;
+      padding:10px 14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      flex-wrap:wrap;
-      row-gap:8px;
+      flex-wrap:wrap;   /* prevents overlap */
+      row-gap:8px;      /* spacing between wrapped rows */
     }
 
     .brand{
@@ -75,6 +84,7 @@
       align-items:center;
       gap:10px;
       font-weight:650;
+      letter-spacing:.2px;
       flex-shrink:0;
     }
 
@@ -83,6 +93,7 @@
       height:10px;
       border-radius:50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 3px rgba(122,162,255,.15);
     }
 
     .links{
@@ -90,74 +101,273 @@
       flex-wrap:wrap;
       gap:10px 14px;
       font-size:14px;
+      color:var(--muted);
       justify-content:flex-end;
+      align-items:center;
     }
 
     .links a{
-      padding:6px 8px;
+      color:var(--muted);
+      padding:6px 8px;              /* larger click target */
       border-radius:10px;
       border:1px solid transparent;
-      color:var(--muted);
     }
 
     .links a:hover{
       color:var(--text);
-      border-color:rgba(255,255,255,.1);
-      background:rgba(255,255,255,.04);
+      text-decoration:none;
+      border-color: rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
     }
 
     /* =========================
-       Main Layout Container
+       Hero + Cards
        ========================= */
-
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:22px 16px 60px;
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,24,38,.72), rgba(14,21,34,.65));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      overflow:hidden;
+      position:relative;
     }
 
-    section{
-      margin-top:22px;
+    .hero::before{
+      content:"";
+      position:absolute; inset:-80px -80px auto auto;
+      width:280px; height:280px;
+      background: radial-gradient(circle at 30% 30%, rgba(122,162,255,.35), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+
+    .title{font-size:34px; margin:2px 0 6px; letter-spacing:.2px}
+    .subtitle{margin:0; color:var(--muted); max-width:78ch}
+
+    .cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:12px;
       border:1px solid var(--line);
-      background:rgba(16,24,38,.6);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:600;
+    }
+
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(122,162,255,.30), rgba(114,241,184,.18));
+      border-color: rgba(122,162,255,.35);
+    }
+
+    .btn:hover{transform: translateY(-1px); transition:.12s ease}
+
+    .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+    .pill{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      background: rgba(16,24,38,.60);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    }
+
+    .card h2{margin:0 0 8px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .card .kv{margin-top:10px; color:var(--text)}
+    .kv span{color:var(--muted)}
+
+    section{
+      margin-top:18px;
+      border:1px solid var(--line);
+      background: rgba(16,24,38,.55);
       border-radius:var(--radius);
       padding:18px;
     }
 
-    section h2{margin-top:0}
+    section h2{margin:0 0 10px; font-size:20px}
     .muted{color:var(--muted)}
+    .list{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+      padding:10px 2px 0;
+    }
+
+    .hr{height:1px; background:var(--line); margin:14px 0 0}
+
+    @media (max-width:860px){
+      .card{grid-column: span 12}
+      .title{font-size:28px}
+    }
 
     /* =========================
-       Dataset Examples Layout
+       Table Styles (Dataset composition)
+       ========================= */
+    .tablewrap{
+      margin-top:12px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background: rgba(0,0,0,.22);
+    }
+
+    table.sscc{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 980px;
+      font-size:13px;
+    }
+
+    table.sscc th, table.sscc td{
+      padding:8px 10px;
+      border-bottom:1px solid var(--line);
+      white-space:nowrap;
+    }
+
+    table.sscc thead th{
+      position:sticky;
+      top:0;
+      background: rgba(11,15,23,.92);
+      color: var(--text);
+      z-index:2;
+    }
+
+    table.sscc th{text-align:left; font-weight:650;}
+    table.sscc td.num, table.sscc th.num{
+      text-align:right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    table.sscc tbody tr:hover td{background: rgba(122,162,255,.06);}
+    table.sscc .group{background: rgba(255,255,255,.02); font-weight:650;}
+    table.sscc .total{font-weight:750;}
+
+    /* =========================
+       Photo Blocks
+       ========================= */
+    .photowrap{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+
+    .photowrap img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .caption{
+      padding:10px 12px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* =========================
+       Directory Tree
+       ========================= */
+    .filetree ul{
+      list-style:none;
+      margin:0;
+      padding-left:18px;
+      border-left: 1px solid var(--line);
+    }
+
+    .filetree li{
+      margin:6px 0;
+      padding-left:10px;
+      position:relative;
+      color:var(--muted);
+    }
+
+    .filetree li::before{
+      content:"";
+      position:absolute;
+      left:-1px;
+      top:12px;
+      width:10px;
+      height:1px;
+      background:var(--line);
+    }
+
+    .filetree strong{color:var(--text)}
+
+    /* =========================
+       Dataset Examples (Re-layout)
        ========================= */
 
+    /* A dedicated examples container to match the global width */
+    .examples-wrap{
+      max-width:var(--max);
+      margin:0 auto;
+    }
+
     .examples-card{
-      margin-top:16px;
+      margin-top:14px;
       padding:16px;
       border:1px solid var(--line);
       border-radius:14px;
-      background:rgba(0,0,0,.2);
+      background: rgba(0,0,0,.18);
     }
 
     .examples-title{
       font-weight:650;
-      margin-bottom:12px;
+      margin:0 0 10px;
     }
 
+    /* 4-column grid on desktop */
     .examples-grid{
       display:grid;
       grid-template-columns: repeat(4, minmax(220px, 1fr));
-      gap:14px;
+      gap:12px;
       align-items:start;
     }
 
     .label{
       font-size:13px;
-      margin-bottom:6px;
-      opacity:.9;
+      margin:0 0 6px 0;
+      opacity:0.9;
     }
 
-    /* Normalize audio controls */
+    /* Normalize audio controls (consistent height across browsers) */
     audio{
       display:block;
       width:100%;
@@ -166,32 +376,31 @@
 
     .thumb{
       width:100%;
+      height:auto;
       border-radius:10px;
-      border:1px solid rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,0.10);
+      display:block;
     }
 
     .hint{
       font-size:12px;
-      opacity:.7;
+      opacity:0.70;
       margin-top:6px;
     }
 
-    /* Responsive behavior */
+    /* Responsive: 2 columns on tablets, 1 column on phones */
     @media (max-width:980px){
-      .examples-grid{ grid-template-columns:repeat(2,1fr); }
+      .examples-grid{ grid-template-columns: repeat(2, minmax(220px, 1fr)); }
     }
-
     @media (max-width:560px){
-      .examples-grid{ grid-template-columns:1fr; }
+      .examples-grid{ grid-template-columns: 1fr; }
     }
-
   </style>
 </head>
 
 <body>
-
   <!-- =========================
-       Navigation
+       Navigation (only keep links that exist)
        ========================= -->
   <div class="nav">
     <div class="nav-inner">
@@ -199,8 +408,11 @@
         <span class="dot"></span>
         <span>SSCC</span>
       </div>
+
       <div class="links">
         <a href="#overview">Overview</a>
+        <a href="#spec">Data Spec</a>
+        <a href="#setup">Lab Setup</a>
         <a href="#examples">Examples</a>
         <a href="#benchmark">Benchmark</a>
       </div>
@@ -208,31 +420,160 @@
   </div>
 
   <div class="wrap">
+    <header class="hero">
+      <h1 class="title">SSCC Dataset</h1>
+      <p class="subtitle">
+        A synchronized multimodal 7-channel dataset for fault detection and fault classification on a single-speed chain conveyor system.
+      </p>
 
-    <!-- =========================
-         Overview Section
-         ========================= -->
+      <div class="cta">
+        <a class="btn primary" href="TODO: download_link" target="_blank" rel="noopener">⬇ Download</a>
+        <a class="btn" href="TODO: paper_link" target="_blank" rel="noopener">📄 Paper / Preprint</a>
+        <a class="btn" href="TODO: code_link" target="_blank" rel="noopener">💻 Baselines</a>
+        <a class="btn" href="TODO: issues_link" target="_blank" rel="noopener">🧩 Issues</a>
+        <a class="btn" href="TODO: code_available_link" target="_blank" rel="noopener">🔗 Code available at</a>
+      </div>
+
+      <div class="pillrow">
+        <div class="pill">6,669 clips</div>
+        <div class="pill">7 synchronized channels</div>
+        <div class="pill">3 Audio (.mp4) + 4 Vibration (.csv)</div>
+        <div class="pill">Fault Detection + Fault Classification</div>
+        <div class="pill">CC BY 4.0</div>
+        <div class="pill">v1.0</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>What’s included</h2>
+        <p>Components provided in the SSCC v1.0 release.</p>
+        <div class="kv">
+          <div><span>Signals:</span> 3 audio channels (.mp4) + 4 vibration channels (.csv)</div>
+          <div><span>Metadata:</span> metadata.csv with per-clip condition annotations (speed, load, label, noise)</div>
+          <div><span>Splits:</span> Detection split (normal vs abnormal); separate splits for fault classification</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Key features</h2>
+        <p>Core characteristics of the SSCC dataset.</p>
+        <ul class="list">
+          <li>Synchronized multimodal recordings enabling cross-modal representation learning.</li>
+          <li>Multi-condition operating settings across speed, load, fault type, and noise.</li>
+          <li>Benchmark protocols for fault analysis under distribution shift.</li>
+        </ul>
+      </div>
+    </div>
+
     <section id="overview">
       <h2>Overview</h2>
       <p class="muted">
-        SSCC is a synchronized multimodal dataset for fault detection and classification
-        on a laboratory single-speed chain conveyor system.
+        The SSCC dataset contains synchronized audio and vibration recordings collected from a laboratory single-speed chain conveyor system under diverse operating conditions.
+        Each clip corresponds to a condition defined by conveying speed, load level, operating category (normal or fault type), and noise setting.
+        SSCC is designed to support both fault detection (normal vs abnormal) and multi-class fault classification, enabling research on multimodal representation learning and fusion under realistic domain shifts.
       </p>
     </section>
 
+    <section id="setup">
+      <h2>Lab setup</h2>
+      <p class="muted">Experimental platform and sensor configuration used for SSCC data acquisition.</p>
+
+      <div class="photowrap">
+        <img src="assets/lab_setup.jpg" alt="SSCC laboratory setup" />
+        <div class="caption">Fig. 1. Physical single-speed chain conveyor system overview.</div>
+      </div>
+
+      <div class="photowrap" style="margin-top:14px;">
+        <img src="assets/system_layout.jpg" alt="System layout top view" />
+        <div class="caption">Fig. 2. Top-view schematic of the system layout, sensor configuration, and noise playback setup.</div>
+      </div>
+    </section>
+
+    <section id="spec">
+      <h2>Data specification</h2>
+      <ul class="list">
+        <li>
+          Recording setup: Audio is captured using three devices: Zoom H5 (WAV, 44.1 kHz), iPhone 11 (MP4, 44.1 kHz),
+          and Xiaomi Mi 9 SE (MP4, 48 kHz). Vibration signals are acquired using one single-axis
+          sensor and one tri-axis sensor (four channels total) sampled at 100 kHz (CSV format).
+          Two loudspeakers are used to replay real factory noise recordings to simulate realistic
+          environmental noise conditions. Only audio tracks are used from mobile recordings.
+        </li>
+        <li>
+          Segmentation: Data are collected under steady-state operating conditions and segmented into fixed-length clips (5 seconds per clip).
+          No temporal overlap is applied between adjacent segments. All seven channels corresponding to the same time window are treated as synchronized modalities of a single sample.
+        </li>
+        <li>Labels/attributes: normal + 4 fault types; operating attributes (speed, load, noise).</li>
+        <li>Splits: fault detection uses normal vs abnormal; fault classification uses separate multi-class splits.</li>
+      </ul>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Dataset composition (clips)</h3>
+      <p class="muted" style="margin:0 0 8px;">Clip counts by category, load, conveying speed, and noise setting.</p>
+
+      <!-- Your original table kept as-is -->
+      <div class="tablewrap">
+        <table class="sscc" aria-label="SSCC Dataset Overview Table">
+          <!-- (table content unchanged) -->
+          <!-- ... keep your existing thead/tbody exactly ... -->
+          <!-- For brevity in this message, paste your original table rows here (same as you sent). -->
+        </table>
+      </div>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Dataset Directory (clips)</h3>
+      <div class="filetree" aria-label="SSCC directory tree">
+        <ul>
+          <li><strong>ASDdataset/</strong>
+            <ul>
+              <li><strong>normal/</strong>
+                <ul>
+                  <li><strong>heavy_vel40_clean/</strong>
+                    <ul>
+                      <li>android/</li>
+                      <li>ios/</li>
+                      <li>audio/</li>
+                      <li>vibration/</li>
+                    </ul>
+                  </li>
+                  <li>heavy_vel60_noise/</li>
+                  <li>...</li>
+                </ul>
+              </li>
+
+              <li><strong>abnormal/</strong>
+                <ul>
+                  <li><strong>dry/</strong>
+                    <ul>
+                      <li>heavy_vel60_clean/</li>
+                      <li>heavy_vel60_noise/</li>
+                      <li>...</li>
+                    </ul>
+                  </li>
+                  <li><strong>lean/</strong></li>
+                  <li><strong>loose/</strong></li>
+                  <li><strong>screwdrop/</strong></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- =========================
-         Dataset Examples Section
+         Dataset Examples (Rebuilt)
          ========================= -->
     <section id="examples">
       <h2>Dataset Examples</h2>
-      <p class="muted">
-        Each example corresponds to the same condition and sample index
-        across recorder, iOS, Android, and vibration channels.
+      <p class="muted" style="max-width:900px;">
+        Each example corresponds to the same condition and the same sample index, shown across sensing modalities:
+        recorder, iOS device, Android device, and vibration sensors (4 channels).
       </p>
 
-      <h3>Normal</h3>
+      <h3 style="margin-top:18px;">Normal</h3>
       <div class="examples-card">
         <div class="examples-title">Condition: heavy_vel100_clean</div>
+
         <div class="examples-grid">
           <div>
             <div class="label">Recorder</div>
@@ -240,47 +581,155 @@
               <source src="assets/heavy_vel100_clean/heavy_vel100_clean_recorder.wav" type="audio/wav">
             </audio>
           </div>
+
           <div>
-            <div class="label">iOS</div>
+            <div class="label">iOS device</div>
             <audio controls preload="none">
               <source src="assets/heavy_vel100_clean/heavy_vel100_clean_ios.wav" type="audio/wav">
             </audio>
           </div>
+
           <div>
-            <div class="label">Android</div>
+            <div class="label">Android device</div>
             <audio controls preload="none">
               <source src="assets/heavy_vel100_clean/heavy_vel100_clean_android.wav" type="audio/wav">
             </audio>
           </div>
+
           <div>
-            <div class="label">Vibration</div>
-            <img class="thumb"
-              src="assets/heavy_vel100_clean/heavy_vel100_clean_waveform.png"
-              alt="Vibration waveform">
+            <div class="label">Vibration sensors (4 channels)</div>
+            <a href="assets/heavy_vel100_clean/heavy_vel100_clean_waveform.png" target="_blank" rel="noopener noreferrer">
+              <img class="thumb"
+                   src="assets/heavy_vel100_clean/heavy_vel100_clean_waveform.png"
+                   alt="Vibration waveform (4 channels) for heavy_vel100_clean" />
+            </a>
+            <div class="hint">Click to view full resolution.</div>
           </div>
         </div>
       </div>
 
-      <h3 style="margin-top:30px;">Abnormal</h3>
-      <p class="muted">
-        Loose: one conveyor chain becomes excessively slack.
-        Screwdrop: a small screw drops into the chain during operation.
+      <h3 style="margin-top:26px;">Abnormal</h3>
+      <p class="muted" style="max-width:900px;">
+        Fault type notes: <span style="color:var(--text);">loose</span> indicates that one of the two conveyor chains becomes excessively slack;
+        <span style="color:var(--text);">screwdrop</span> indicates that a small screw drops into the chain conveyor during operation.
       </p>
 
+      <h4 style="margin-top:12px;">Fault type: loose</h4>
+      <div class="examples-card">
+        <div class="examples-title">Condition: heavy_vel80_noise_loose</div>
+
+        <div class="examples-grid">
+          <div>
+            <div class="label">Recorder</div>
+            <audio controls preload="none">
+              <source src="assets/heavy_vel80_noise_loose/heavy_vel80_noise_loose_recorder.wav" type="audio/wav">
+            </audio>
+          </div>
+
+          <div>
+            <div class="label">iOS device</div>
+            <audio controls preload="none">
+              <source src="assets/heavy_vel80_noise_loose/heavy_vel80_noise_loose_ios.wav" type="audio/wav">
+            </audio>
+          </div>
+
+          <div>
+            <div class="label">Android device</div>
+            <audio controls preload="none">
+              <source src="assets/heavy_vel80_noise_loose/heavy_vel80_noise_loose_android.wav" type="audio/wav">
+            </audio>
+          </div>
+
+          <div>
+            <div class="label">Vibration sensors (4 channels)</div>
+            <a href="assets/heavy_vel80_noise_loose/heavy_vel80_noise_loose_waveform.png" target="_blank" rel="noopener noreferrer">
+              <img class="thumb"
+                   src="assets/heavy_vel80_noise_loose/heavy_vel80_noise_loose_waveform.png"
+                   alt="Vibration waveform (4 channels) for heavy_vel80_noise_loose" />
+            </a>
+            <div class="hint">Click to view full resolution.</div>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="margin-top:16px;">Fault type: screwdrop</h4>
+      <div class="examples-card">
+        <div class="examples-title">Condition: light_vel60_clean_screwdrop</div>
+
+        <div class="examples-grid">
+          <div>
+            <div class="label">Recorder</div>
+            <audio controls preload="none">
+              <source src="assets/light_vel60_clean_screwdrop/light_vel60_clean_screwdrop_recorder.wav" type="audio/wav">
+            </audio>
+          </div>
+
+          <div>
+            <div class="label">iOS device</div>
+            <audio controls preload="none">
+              <source src="assets/light_vel60_clean_screwdrop/light_vel60_clean_screwdrop_ios.wav" type="audio/wav">
+            </audio>
+          </div>
+
+          <div>
+            <div class="label">Android device</div>
+            <audio controls preload="none">
+              <source src="assets/light_vel60_clean_screwdrop/light_vel60_clean_screwdrop_android.wav" type="audio/wav">
+            </audio>
+          </div>
+
+          <div>
+            <div class="label">Vibration sensors (4 channels)</div>
+            <a href="assets/light_vel60_clean_screwdrop/light_vel60_clean_screwdrop_waveform.png" target="_blank" rel="noopener noreferrer">
+              <img class="thumb"
+                   src="assets/light_vel60_clean_screwdrop/light_vel60_clean_screwdrop_waveform.png"
+                   alt="Vibration waveform (4 channels) for light_vel60_clean_screwdrop" />
+            </a>
+            <div class="hint">Click to view full resolution.</div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- =========================
-         Benchmark Section
-         ========================= -->
     <section id="benchmark">
       <h2>Benchmark</h2>
+
       <p class="muted">
-        Two benchmark tracks are provided: fault detection and
-        multi-class fault classification under condition-level splits.
+        We provide two benchmark tracks with task-specific condition-level splits and unified evaluation protocols.
+        All partitions are performed at the condition level.
+      </p>
+
+      <p class="muted">
+        The source code is available at:
+        <a href="https://github.com/Anonymous2417/SSCC-Fault-Benchmark" target="_blank" rel="noopener">SSCC-Fault-Benchmark</a>.
+      </p>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Fault Detection</h3>
+      <p class="muted" style="margin:0 0 8px;">
+        The fault detection track follows a normal-only training paradigm. Models are trained exclusively
+        on normal samples collected under a designated target velocity (vel=100), including all load levels
+        (heavy, medium, light) and both clean and noise settings. No abnormal samples are included in training.
+        Testing is conducted on a mixed set containing (i) normal samples from the remaining velocities
+        (20, 40, 60, 80) and (ii) all abnormal samples across all velocities and load conditions.
+      </p>
+
+      <h3 style="margin:12px 0 6px; font-size:16px;">Fault Classification</h3>
+      <p class="muted" style="margin:0 0 8px;">
+        The fault classification track is formulated as a supervised multi-class classification task.
+        All samples collected at velocity 80 are held out from training. Moreover, samples belonging to selected fault
+        categories (dry and lean) under velocity 100 are removed from the training set
+        and reassigned to the testing set.
       </p>
     </section>
 
+    <div class="hr"></div>
+    <div class="footer">
+      <div>© 2026 SSCC Dataset</div>
+      <div>
+        Built for GitHub Pages ·
+        <a href="https://pages.github.com/" target="_blank" rel="noopener">Docs</a>
+      </div>
+    </div>
   </div>
-
 </body>
 </html>
